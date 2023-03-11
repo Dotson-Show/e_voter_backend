@@ -14,43 +14,49 @@
                 <form class="user">
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input class="form-control form-control-user" type="text" id="firstNameInput" placeholder="First Name" name="first_name">
+                            <input class="form-control form-control-user" type="text" id="firstNameInput" placeholder="First Name" name="first_name" required minlength="2">
                         </div>
                         <div class="col-sm-6">
-                            <input class="form-control form-control-user" type="text" id="lastNameInput" placeholder="Last Name" name="last_name">
+                            <input class="form-control form-control-user" type="text" id="lastNameInput" placeholder="Last Name" name="last_name" required minlength="2">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input class="form-control form-control-user" type="text" id="ageInput" placeholder="Age" name="age">
+                            <input class="form-control form-control-user" type="number" id="ageInput" placeholder="Age" name="age" required minlength="2" maxlength="3">
                         </div>
                         <div class="col-sm-6">
-                            <input class="form-control form-control-user" type="text" id="ninInput" placeholder="National Identity Number" name="nin">
+                            <input class="form-control form-control-user" type="text" id="ninInput" placeholder="National Identity Number" name="nin" required>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input class="form-control form-control-user" type="email" id="emailInput" aria-describedby="emailHelp" placeholder="Email Address" name="email">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <input class="form-control form-control-user" type="email" id="emailInput" aria-describedby="emailHelp" placeholder="Email Address" name="email" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-control text-muted rounded-pill h-100" id="genderInput" name="gender" placeholder="Gender" style="font-size: 13px" required>
+                                <option selected disabled>Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input class="form-control form-control-user" type="password" id="passwordInput" placeholder="Password" name="password"></div>
+                            <input class="form-control form-control-user" type="password" id="passwordInput" placeholder="Password" name="password" required minlength="6" maxlength="10"></div>
                         <div class="col-sm-6">
-                            <input class="form-control form-control-user" type="password" id="repeatPasswordInput" placeholder="Repeat Password" name="password_repeat">
+                            <input class="form-control form-control-user" type="password" id="repeatPasswordInput" placeholder="Repeat Password" name="password_repeat" required minlength="6" maxlength="10">
                         </div>
                     </div>
-                    <!-- Button HTML (to Trigger Modal)  anchor to be removed-->
-                    <a href="#myModal" class="text-white" data-toggle="modal">
-                        <button class="btn btn-primary btn-block text-white btn-user" type="submit">
-                            Register Account
-                        </button>
-                    </a>
+                    <button id="formSubmit" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                        Register Account
+                    </button>
+
                     <hr>
                 </form>
-                <div class="text-center"><a class="small" th:href="@{forgot-password}" style="color: var(--white);">Forgot Password?</a></div>
-                <div class="text-center"><a class="small" th:href="@{login}" style="color: var(--white);">Already have an account? Login!</a></div>
+                <div class="text-center"><a class="small" th:href="@{/forgot-password-page}" style="color: var(--white);">Forgot Password?</a></div>
+                <div class="text-center"><a class="small" th:href="@{/login-page}" style="color: var(--white);">Already have an account? Login!</a></div>
             </div>
         </div>
-        
     </div>
 
     <!-- Success Modal HTML -->
@@ -92,6 +98,56 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let passwordInput = document.getElementById("passwordInput");
+            let repeatPasswordInput = document.getElementById("repeatPasswordInput");
+
+            let form = $('form');
+
+            form.on('submit', function (e) {
+                e.preventDefault();
+                let formData = $(this).serializeArray();
+                console.log(formData[6].value != formData[7].value);
+                if (formData[6].value != formData[7].value) {
+                    repeatPasswordInput.setCustomValidity("Passwords do not match.");
+                }
+                else {
+                    repeatPasswordInput.setCustomValidity('');
+                    let data = {
+                        "name": formData[0].value + ' ' + formData[1].value,
+                        "age": formData[2].value,
+                        "nin": formData[3].value,
+                        "email": formData[4].value,
+                        "sex": formData[5].value,
+                        "password": formData[6].value,
+                    };
+
+                    $.ajax({
+                        contentType: "application/json",
+                        type: 'POST',
+                        url: '/register',
+                        data: JSON.stringify(data),
+                        statusCode: {
+                            201: function() {
+                                $('#myModal').modal('show');
+                                $('form')[0].reset();
+                            },
+                            400: function() {
+                                $('#myFailModal').modal('show');
+                            },
+                            500: function() {
+                                $('#myFailModal').modal('show');
+                            }
+                        },
+                        success: function (data) {
+                            console.log(data);
+                        }
+                    })
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>

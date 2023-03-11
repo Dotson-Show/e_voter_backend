@@ -4,6 +4,8 @@ import com.evoter.user.model.User;
 import com.evoter.user.repository.UserRepository;
 import com.evoter.user.dto.AddUserRequest;
 import com.evoter.user.dto.UpdateUserRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +18,11 @@ import static java.time.LocalTime.now;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public List<User> getAllUsers() {
@@ -34,7 +38,7 @@ public class UserService {
         user.setName(request.name());
         user.setAge(request.age());
         user.setEmail(request.email());
-        user.setPassword(request.password());
+        user.setPassword(bCryptPasswordEncoder.encode(request.password()));
         user.setSex(request.sex());
         user.setNin(request.nin());
         user.setAdmin(false);

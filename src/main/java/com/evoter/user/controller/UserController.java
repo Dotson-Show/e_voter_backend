@@ -15,7 +15,6 @@ import java.util.List;
  * @author showunmioludotun
  */
 @Controller
-@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -34,6 +33,7 @@ public class UserController {
              }
              return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
          } catch (Exception e) {
+             System.out.println(e.getMessage());
              return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
          }
     }

@@ -5,6 +5,7 @@ import com.evoter.party.dto.AddPartyRequest;
 import com.evoter.party.service.PartyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,8 +13,7 @@ import java.util.List;
 /**
  * @author showunmioludotun
  */
-@RestController
-@RequestMapping("/api/v1")
+@Controller
 public class PartyController {
     private final PartyService partyService;
 
