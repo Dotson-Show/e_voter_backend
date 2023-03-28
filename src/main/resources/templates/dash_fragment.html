@@ -34,37 +34,37 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/dashboard/profile}">
+        <a class="nav-link" th:href="@{/dashboard/profile/} + ${authUser.id}">
           <i class="fas fa-user"></i>
           <span>Profile</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/dashboard/polls}">
+        <a class="nav-link" th:href="@{/dashboard/polls/} + ${authUser.id}">
           <i class="fas fa-user"></i>
           <span>Polls</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/dashboard/add-candidate}">
+      <li class="nav-item" th:if="${isAdmin}">
+        <a class="nav-link" th:href="@{/dashboard/add-candidate/} + ${authUser.id}">
           <i class="far fa-user-circle"></i>
           <span>Create Candidate</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/dashboard/add-poll-type}">
+      <li class="nav-item" th:if="${isAdmin}">
+        <a class="nav-link" th:href="@{/dashboard/add-poll-type/} + ${authUser.id}">
           <i class="far fa-user-circle"></i>
           <span>Create Poll type</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/dashboard/add-poll}">
+      <li class="nav-item" th:if="${isAdmin}">
+        <a class="nav-link" th:href="@{/dashboard/add-poll/} + ${authUser.id}">
           <i class="far fa-user-circle"></i>
           <span>Create Poll</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/dashboard/add-admin}">
+      <li class="nav-item" th:if="${isAdmin}">
+        <a class="nav-link" th:href="@{/dashboard/add-admin/} + ${authUser.id}">
           <i class="fas fa-user-circle"></i>
           <span>Add Admin</span>
         </a>
