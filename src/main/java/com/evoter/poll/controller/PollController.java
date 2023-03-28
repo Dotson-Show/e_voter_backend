@@ -23,7 +23,7 @@ public class PollController {
         this.pollService = pollService;
     }
 
-    @PostMapping("/polls")
+    @PostMapping("/polls/save")
     public ResponseEntity<Poll> addPoll(@RequestBody AddPollRequest request) {
         try {
             Poll savedPoll = pollService.addPoll(request);

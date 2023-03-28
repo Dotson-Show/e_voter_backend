@@ -1,5 +1,7 @@
 package com.evoter;
 
+import com.evoter.pollType.model.PollType;
+import com.evoter.pollType.service.PollTypeService;
 import com.evoter.user.Role;
 import com.evoter.user.dto.UserLoginDto;
 import com.evoter.user.model.User;
@@ -9,15 +11,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequestMapping
 public class RouteController {
     private final UserService userService;
+    private final PollTypeService pollTypeService;
 
-    public RouteController(UserService userService) {
+    public RouteController(UserService userService, PollTypeService pollTypeService) {
         this.userService = userService;
+        this.pollTypeService = pollTypeService;
     }
 
     @GetMapping("/")
@@ -88,6 +93,8 @@ public class RouteController {
     @GetMapping("/dashboard/add-poll/{userid}")
     public String addPoll(@PathVariable("userid") Long Id, Model model) {
         prepareAuthUserForView(Id, model);
+        List<PollType> pollTypes = pollTypeService.getAllPollTypes();
+        model.addAttribute("pollTypes", pollTypes);
         model.addAttribute("pageTitle", "E-Voter - Add Poll");
         return "add_poll";
     }

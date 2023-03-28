@@ -3,6 +3,7 @@ package com.evoter.pollType.service;
 import com.evoter.pollType.model.PollType;
 import com.evoter.pollType.repository.PollTypeRepository;
 import com.evoter.pollType.dto.AddPollTypeRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  */
 @Service
 public class PollTypeService {
+    @Autowired
     private final PollTypeRepository pollTypeRepository;
 
     public PollTypeService(PollTypeRepository pollTypeRepository) {
