@@ -1,5 +1,10 @@
 package com.evoter;
 
+import com.evoter.party.model.Party;
+import com.evoter.party.service.PartyService;
+import com.evoter.pollType.model.PollType;
+import com.evoter.pollType.service.PollTypeService;
+import com.evoter.user.Role;
 import com.evoter.user.dto.UserLoginDto;
 import com.evoter.user.model.User;
 import com.evoter.user.service.UserService;
@@ -8,15 +13,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequestMapping
 public class RouteController {
     private final UserService userService;
+    private final PollTypeService pollTypeService;
 
-    public RouteController(UserService userService) {
+    private final PartyService partyService;
+
+    public RouteController(UserService userService, PollTypeService pollTypeService, PartyService partyService) {
         this.userService = userService;
+        this.pollTypeService = pollTypeService;
+        this.partyService = partyService;
     }
 
     @GetMapping("/")
@@ -57,52 +68,79 @@ public class RouteController {
 
     @GetMapping("/dashboard/{userid}")
     public String dashboard(@PathVariable("userid") Long Id,  Model model) {
-        User user = userService.getUserById(Id);
+        prepareAuthUserForView(Id, model);
         model.addAttribute("pageTitle", "E-Voter - Dashboard");
-        model.addAttribute("authUser", user);
         return "dashboard";
     }
 
-    @GetMapping("/dashboard/profile")
-    public String profile(Model model) {
+    private void prepareAuthUserForView(Long Id, Model model) {
+        User user = userService.getUserById(Id);
+        if (user.getRole() == Role.ADMIN) {
+            model.addAttribute("isAdmin", true);
+        }
+        model.addAttribute("authUser", user);
+    }
+
+    @GetMapping("/dashboard/profile/{userid}")
+    public String profile(@PathVariable("userid") Long Id, Model model) {
+        prepareAuthUserForView(Id, model);
         model.addAttribute("pageTitle", "E-Voter - Profile");
         return "profile";
     }
 
-    @GetMapping("/dashboard/polls")
-    public String polls(Model model) {
+    @GetMapping("/dashboard/polls/{userid}")
+    public String polls(@PathVariable("userid") Long Id, Model model) {
+        prepareAuthUserForView(Id, model);
         model.addAttribute("pageTitle", "E-Voter - Polls");
         return "polls";
     }
 
-    @GetMapping("/dashboard/add-poll")
-    public String addPoll(Model model) {
+    @GetMapping("/dashboard/add-poll/{userid}")
+    public String addPoll(@PathVariable("userid") Long Id, Model model) {
+        prepareAuthUserForView(Id, model);
+        List<PollType> pollTypes = pollTypeService.getAllPollTypes();
+        model.addAttribute("pollTypes", pollTypes);
         model.addAttribute("pageTitle", "E-Voter - Add Poll");
         return "add_poll";
     }
 
-    @GetMapping("/dashboard/vote")
-    public String vote(Model model) {
+    @GetMapping("/dashboard/vote/{userid}")
+    public String vote(@PathVariable("userid") Long Id, Model model) {
+        prepareAuthUserForView(Id, model);
         model.addAttribute("pageTitle", "E-Voter - Vote");
         return "vote";
     }
 
-    @GetMapping("/dashboard/add-admin")
-    public String addAdmin(Model model) {
+    @GetMapping("/dashboard/add-admin/{userid}")
+    public String addAdmin(@PathVariable("userid") Long Id, Model model) {
+        prepareAuthUserForView(Id, model);
         model.addAttribute("pageTitle", "E-Voter - Add Admin");
         return "add_admin";
     }
 
-    @GetMapping("/dashboard/add-candidate")
-    public String addCandidate(Model model) {
+    @GetMapping("/dashboard/add-candidate/{userid}")
+    public String addCandidate(@PathVariable("userid") Long Id, Model model) {
+        prepareAuthUserForView(Id, model);
+        List<PollType> pollTypes = pollTypeService.getAllPollTypes();
+        model.addAttribute("pollTypes", pollTypes);
+        List<Party> parties = partyService.getAllParties();
+        model.addAttribute("parties", parties);
         model.addAttribute("pageTitle", "E-Voter - Add Candidate");
         return "add_candidate";
     }
 
-    @GetMapping("/dashboard/add-poll-type")
-    public String addPollType(Model model) {
+    @GetMapping("/dashboard/add-poll-type/{userid}")
+    public String addPollType(@PathVariable("userid") Long Id, Model model) {
+        prepareAuthUserForView(Id, model);
         model.addAttribute("pageTitle", "E-Voter - Add Poll Type");
         return "add_poll_type";
+    }
+
+    @GetMapping("/dashboard/add-party/{userid}")
+    public String addParty(@PathVariable("userid") Long Id, Model model) {
+        prepareAuthUserForView(Id, model);
+        model.addAttribute("pageTitle", "E-Voter - Add Poll Type");
+        return "add_party";
     }
 
 //    @GetMapping("/error")

@@ -10,15 +10,19 @@
             <div id="content">
                 <nav th:replace="~{dash_fragment :: dash-top-nav}"></nav>
                 <div class="container-fluid" style="min-height: 620px">
-                    <h3 class="text-dark mb-4">Create Poll Type</h3>
+                    <h3 class="text-dark mb-4">Create Party</h3>
                     <div class="row gutters-sm">
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-body">
                                    <form>
                                         <div class="form-group">
-                                             <label for="pollTypeInput">Poll Type</label>
-                                             <input type="text" class="form-control" id="pollTypeInput" name="poll_type">
+                                             <label for="partyNameInput">Party Name</label>
+                                             <input type="text" class="form-control" id="partyNameInput" name="party_name">
+                                        </div>
+                                       <div class="form-group">
+                                             <label for="partyAcronymInput">Party Name</label>
+                                             <input type="text" class="form-control" id="partyAcronymInput" name="party_acronym">
                                         </div>
                                         <button type="submit" class="btn btn-primary">
                                              Submit
@@ -87,14 +91,15 @@
                 let formData = $(this).serializeArray();
                 console.log(formData);
                 let data = {
-                    "name": formData[0].value
+                    "name": formData[0].value,
+                    "acronym": formData[1].value,
                 };
                 console.log(data);
 
                 $.ajax({
                     contentType: "application/json",
                     type: 'POST',
-                    url: '/poll-types/save',
+                    url: '/parties/save',
                     data: JSON.stringify(data),
                     statusCode: {
                         201: function() {

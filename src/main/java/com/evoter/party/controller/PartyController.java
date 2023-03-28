@@ -21,7 +21,7 @@ public class PartyController {
         this.partyService = partyService;
     }
 
-    @PostMapping("/parties")
+    @PostMapping("/parties/save")
     public ResponseEntity<Party> addParty(@RequestBody AddPartyRequest request) {
         try {
             Party savedParty = partyService.addParty(request);

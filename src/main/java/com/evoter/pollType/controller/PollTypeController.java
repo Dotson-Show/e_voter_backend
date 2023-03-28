@@ -23,7 +23,7 @@ public class PollTypeController {
         this.pollTypeService = pollTypeService;
     }
 
-    @PostMapping("/poll-types")
+    @PostMapping("/poll-types/save")
     public ResponseEntity<PollType> addPollType(@RequestBody AddPollTypeRequest request) {
         try {
             PollType savedPollType = pollTypeService.addPollType(request);

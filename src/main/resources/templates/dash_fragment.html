@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" th:href="@{/assets/fonts/fontawesome5-overrides.min.css}">
   <link rel="stylesheet" th:href="@{/assets/css/Navigation-with-Button.css}">
 
@@ -34,37 +35,43 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/dashboard/profile}">
+        <a class="nav-link" th:href="@{/dashboard/profile/} + ${authUser.id}">
           <i class="fas fa-user"></i>
           <span>Profile</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/dashboard/polls}">
+        <a class="nav-link" th:href="@{/dashboard/polls/} + ${authUser.id}">
           <i class="fas fa-user"></i>
           <span>Polls</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/dashboard/add-candidate}">
+      <li class="nav-item" th:if="${isAdmin}">
+        <a class="nav-link" th:href="@{/dashboard/add-candidate/} + ${authUser.id}">
           <i class="far fa-user-circle"></i>
           <span>Create Candidate</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/dashboard/add-poll-type}">
+      <li class="nav-item" th:if="${isAdmin}">
+        <a class="nav-link" th:href="@{/dashboard/add-party/} + ${authUser.id}">
+          <i class="fas fa-user-circle"></i>
+          <span>Create Party</span>
+        </a>
+      </li>
+      <li class="nav-item" th:if="${isAdmin}">
+        <a class="nav-link" th:href="@{/dashboard/add-poll-type/} + ${authUser.id}">
           <i class="far fa-user-circle"></i>
           <span>Create Poll type</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/dashboard/add-poll}">
+      <li class="nav-item" th:if="${isAdmin}">
+        <a class="nav-link" th:href="@{/dashboard/add-poll/} + ${authUser.id}">
           <i class="far fa-user-circle"></i>
           <span>Create Poll</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/dashboard/add-admin}">
+      <li class="nav-item" th:if="${isAdmin}">
+        <a class="nav-link" th:href="@{/dashboard/add-admin/} + ${authUser.id}">
           <i class="fas fa-user-circle"></i>
           <span>Add Admin</span>
         </a>
@@ -89,7 +96,7 @@
             <img class="border rounded-circle img-profile" th:src="@{/assets/img/avatars/avatar1.jpeg}">
           </a>
           <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in">
-            <a class="dropdown-item" th:href="@{/dashboard/profile}">
+            <a class="dropdown-item" th:href="@{/dashboard/profile/} + ${authUser.id}">
               <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               &nbsp;Profile
             </a>

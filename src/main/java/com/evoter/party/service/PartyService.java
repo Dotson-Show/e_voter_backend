@@ -22,6 +22,7 @@ public class PartyService {
     public Party addParty(AddPartyRequest request) {
         Party party = new Party();
         party.setName(request.name());
+        party.setAcronym(request.acronym());
         party.setLogo(request.logo());
         return partyRepository.save(party);
     }
