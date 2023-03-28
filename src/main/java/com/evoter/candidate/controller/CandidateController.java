@@ -23,7 +23,7 @@ public class CandidateController {
         this.candidateService = candidateService;
     }
 
-    @PostMapping("/candidates")
+    @PostMapping("/candidates/save")
     public ResponseEntity<Candidate> addCandidate(@RequestBody AddCandidateRequest request) {
         try {
             Candidate savedCandidate = candidateService.addCandidate(request);

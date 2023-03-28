@@ -5,6 +5,6 @@ public record AddCandidateRequest(
         Integer pollTypeId,
         String name,
         Integer age,
-        String sex
+        String gender
 ) {
 }
