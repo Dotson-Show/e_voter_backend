@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{dash_fragment :: dash-head}" />
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav th:replace="~{dash_fragment :: dash-sidebar-nav}"></nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav th:replace="~{dash_fragment :: dash-top-nav}"></nav>
+                <div class="container-fluid" style="min-height: 620px">
+                    <h3 class="text-dark mb-4">Create Poll</h3>
+                    <div class="row gutters-sm">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                   <form>
+                                        <div class="form-group">
+                                             <label for="pollTypeInput">Poll Type</label>
+                                             <select id="pollTypeInput" class="form-control" name="poll_type">
+                                                  <option value="1">Presidential Election</option>
+                                                  <option value="2">Governotorial Election</option>
+                                                  <option value="3">Counselor Election</option>
+                                                  <option value="4">House Of Rep Election</option>
+                                             </select>
+                                        </div>
+                                        <div class="form-group">
+                                             <label for="pollDateInput">Poll Date</label>
+                                             <input type="date" class="form-control" id="pollDateInput" name="poll_date">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">
+                                             Submit
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © E-Voter 2023</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+</div></body>
+
+</html>

@@ -22,7 +22,6 @@ public class VoteService {
     public Vote addVote(AddVoteRequest request) {
         Vote vote = new Vote();
         vote.setUserId(request.userId());
-        vote.setCandidateId(request.candidateId());
         vote.setPollId(request.pollId());
         return voteRepository.save(vote);
     }

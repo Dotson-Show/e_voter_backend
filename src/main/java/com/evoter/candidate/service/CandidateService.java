@@ -24,7 +24,7 @@ public class CandidateService {
         candidate.setPollTypeId(request.pollTypeId());
         candidate.setName(request.name());
         candidate.setAge(request.age());
-        candidate.setSex(request.sex());
+        candidate.setGender(request.sex());
         return candidateRepository.save(candidate);
     }
 
