@@ -53,8 +53,8 @@
 
                     <hr>
                 </form>
-                <div class="text-center"><a class="small" th:href="@{/forgot-password-page}" style="color: var(--white);">Forgot Password?</a></div>
-                <div class="text-center"><a class="small" th:href="@{/login-page}" style="color: var(--white);">Already have an account? Login!</a></div>
+                <div class="text-center"><a class="small" th:href="@{/forgot-password}" style="color: var(--white);">Forgot Password?</a></div>
+                <div class="text-center"><a class="small" th:href="@{/login}" style="color: var(--white);">Already have an account? Login!</a></div>
             </div>
         </div>
     </div>
@@ -119,14 +119,15 @@
                         "age": formData[2].value,
                         "nin": formData[3].value,
                         "email": formData[4].value,
-                        "sex": formData[5].value,
+                        "gender": formData[5].value,
                         "password": formData[6].value,
                     };
+                    console.log(data);
 
                     $.ajax({
                         contentType: "application/json",
                         type: 'POST',
-                        url: '/register',
+                        url: '/register/save',
                         data: JSON.stringify(data),
                         statusCode: {
                             201: function() {

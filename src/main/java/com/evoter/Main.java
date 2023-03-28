@@ -8,15 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @SpringBootApplication
-@Controller
 public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
-    }
-
-    @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("pageTitle", "E-Voter - Landing Page");
-        return "index";
     }
 }
