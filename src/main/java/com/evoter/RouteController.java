@@ -127,6 +127,13 @@ public class RouteController {
         return "add_poll_type";
     }
 
+    @GetMapping("/dashboard/add-party/{userid}")
+    public String addParty(@PathVariable("userid") Long Id, Model model) {
+        prepareAuthUserForView(Id, model);
+        model.addAttribute("pageTitle", "E-Voter - Add Poll Type");
+        return "add_party";
+    }
+
 //    @GetMapping("/error")
 //    public String error(Model model) {
 //        model.addAttribute("pageTitle", "E-Voter - Error");

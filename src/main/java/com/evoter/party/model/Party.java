@@ -25,5 +25,9 @@ public class Party {
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+
+    @Column(name = "acronym", nullable = false, unique = true)
+    private String acronym;
+    @Column(name = "logo", nullable = true)
     private String logo;
 }

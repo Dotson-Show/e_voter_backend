@@ -53,6 +53,12 @@
         </a>
       </li>
       <li class="nav-item" th:if="${isAdmin}">
+        <a class="nav-link" th:href="@{/dashboard/add-party/} + ${authUser.id}">
+          <i class="fas fa-user-circle"></i>
+          <span>Create Party</span>
+        </a>
+      </li>
+      <li class="nav-item" th:if="${isAdmin}">
         <a class="nav-link" th:href="@{/dashboard/add-poll-type/} + ${authUser.id}">
           <i class="far fa-user-circle"></i>
           <span>Create Poll type</span>
