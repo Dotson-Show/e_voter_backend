@@ -1,7 +1,9 @@
 package com.evoter;
 
+import com.evoter.candidate.service.CandidateService;
 import com.evoter.party.model.Party;
 import com.evoter.party.service.PartyService;
+import com.evoter.poll.service.PollService;
 import com.evoter.pollType.model.PollType;
 import com.evoter.pollType.service.PollTypeService;
 import com.evoter.user.Role;
@@ -21,13 +23,16 @@ import java.util.List;
 public class RouteController {
     private final UserService userService;
     private final PollTypeService pollTypeService;
-
     private final PartyService partyService;
+    private final CandidateService candidateService;
+    private final PollService pollService;
 
-    public RouteController(UserService userService, PollTypeService pollTypeService, PartyService partyService) {
+    public RouteController(UserService userService, PollTypeService pollTypeService, PartyService partyService, CandidateService candidateService, PollService pollService) {
         this.userService = userService;
         this.pollTypeService = pollTypeService;
         this.partyService = partyService;
+        this.candidateService = candidateService;
+        this.pollService = pollService;
     }
 
     @GetMapping("/")
@@ -91,6 +96,8 @@ public class RouteController {
     @GetMapping("/dashboard/polls/{userid}")
     public String polls(@PathVariable("userid") Long Id, Model model) {
         prepareAuthUserForView(Id, model);
+        List<PollType> pollTypes = pollTypeService.getAllPollTypes();
+        model.addAttribute("pollTypes", pollTypes);
         model.addAttribute("pageTitle", "E-Voter - Polls");
         return "polls";
     }

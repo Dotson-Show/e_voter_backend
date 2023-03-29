@@ -36,4 +36,8 @@ public class PollService {
     public void deletePollById(Long id) {
         pollRepository.deleteById(id);
     }
+
+//    public List<Poll> getAllPollsWithCandidateAndPollType() {
+//        return pollRepository.findAllWithCandidateAndPollType();
+//    }
 }
