@@ -1,8 +1,10 @@
 package com.evoter;
 
+import com.evoter.candidate.model.Candidate;
 import com.evoter.candidate.service.CandidateService;
 import com.evoter.party.model.Party;
 import com.evoter.party.service.PartyService;
+import com.evoter.poll.model.Poll;
 import com.evoter.poll.service.PollService;
 import com.evoter.pollType.model.PollType;
 import com.evoter.pollType.service.PollTypeService;
@@ -96,8 +98,8 @@ public class RouteController {
     @GetMapping("/dashboard/polls/{userid}")
     public String polls(@PathVariable("userid") Long Id, Model model) {
         prepareAuthUserForView(Id, model);
-        List<PollType> pollTypes = pollTypeService.getAllPollTypes();
-        model.addAttribute("pollTypes", pollTypes);
+        List<Poll> polls = pollService.getAllPolls();
+        model.addAttribute("polls", polls);
         model.addAttribute("pageTitle", "E-Voter - Polls");
         return "polls";
     }
@@ -111,9 +113,13 @@ public class RouteController {
         return "add_poll";
     }
 
-    @GetMapping("/dashboard/vote/{userid}")
-    public String vote(@PathVariable("userid") Long Id, Model model) {
+    @GetMapping("/dashboard/vote/{userid}/{pollid}")
+    public String vote(@PathVariable("userid") Long Id, @PathVariable("pollid") Long pollId, Model model) {
         prepareAuthUserForView(Id, model);
+        Poll poll = pollService.getPollById(pollId);
+        List<Candidate> candidates = candidateService.getCandidatesByPollTypeId(poll.getPollTypeId());
+        model.addAttribute("candidates", candidates);
+        model.addAttribute("poll", poll);
         model.addAttribute("pageTitle", "E-Voter - Vote");
         return "vote";
     }

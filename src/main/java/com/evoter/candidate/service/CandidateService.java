@@ -40,4 +40,9 @@ public class CandidateService {
     public void deleteCandidateById(Long id) {
         candidateRepository.deleteById(id);
     }
+
+    public List<Candidate> getCandidatesByPollTypeId(Integer pollTypeId) {
+        List<Candidate> candidates = candidateRepository.findByPollTypeId(pollTypeId);
+        return candidates;
+    }
 }

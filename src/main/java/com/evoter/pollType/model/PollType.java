@@ -1,11 +1,13 @@
 package com.evoter.pollType.model;
 
+import com.evoter.poll.model.Poll;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -25,4 +27,8 @@ public class PollType {
 
     @Column(nullable = false, unique = true)
     private String name;
+
+//    @OneToMany(mappedBy = "pollType", fetch = FetchType.LAZY)
+//    private List<Poll> polls;
+
 }

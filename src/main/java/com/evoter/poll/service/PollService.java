@@ -20,7 +20,7 @@ public class PollService {
 
     public Poll addPoll(AddPollRequest request) {
         Poll poll = new Poll();
-        poll.setPollTypeId(request.pollTypeId());
+//        poll.setPollTypeId(request.pollTypeId());
         poll.setPollDate(request.pollDate());
         return pollRepository.save(poll);
     }
@@ -37,7 +37,7 @@ public class PollService {
         pollRepository.deleteById(id);
     }
 
-//    public List<Poll> getAllPollsWithCandidateAndPollType() {
-//        return pollRepository.findAllWithCandidateAndPollType();
+//    public List<Poll> findAllPollsWithCandidatesAndPollType() {
+//        return pollRepository.findAllWithCandidatesAndPollType();
 //    }
 }
