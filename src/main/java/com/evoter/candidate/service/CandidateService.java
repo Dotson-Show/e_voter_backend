@@ -45,4 +45,10 @@ public class CandidateService {
         List<Candidate> candidates = candidateRepository.findByPollTypeId(pollTypeId);
         return candidates;
     }
+
+    public void increamentVoteCount(Long candidateId) {
+        Candidate candidate = candidateRepository.findById(candidateId).orElse(null);
+        candidate.setVoteCount(candidate.getVoteCount() + 1);
+        candidateRepository.save(candidate);
+    }
 }
