@@ -1,5 +1,6 @@
 package com.evoter.candidate.model;
 
+import com.evoter.poll.model.Poll;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,4 +49,8 @@ public class Candidate {
     private void onCreate() {
         createdAt = new Date();
     }
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "poll_id")
+//    private Poll poll;
 }

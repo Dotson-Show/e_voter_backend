@@ -23,9 +23,10 @@ public class VoteController {
         this.voteService = voteService;
     }
 
-    @PostMapping("/votes")
+    @PostMapping("/votes/save")
     public ResponseEntity<Vote> addVote(@RequestBody AddVoteRequest request) {
         try {
+
             Vote savedVote = voteService.addVote(request);
             if (savedVote == null) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
